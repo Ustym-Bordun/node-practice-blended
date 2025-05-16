@@ -2,7 +2,7 @@ import express from 'express';
 import cors from 'cors';
 
 import { env } from './utils/env.js';
-
+import productsRouter from './routers/products.js';
 import { errorHandler } from './middlewares/errorHandler.js';
 import { notFoundHandler } from './middlewares/notFoundHandler.js';
 import { Product } from './db/models/products.js';
@@ -15,7 +15,6 @@ export const setupServer = () => {
   app.use(express.json());
   app.use(cors());
 
-  // app.use(productsRouter);
   app.get('/', async (req, res) => {
     const result = await Product.find();
     res.status(200).json({
@@ -23,11 +22,15 @@ export const setupServer = () => {
       data: result,
     });
   });
+
+  app.use(productsRouter);
+
   app.use(notFoundHandler);
 
   app.use(errorHandler);
 
   app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
+    console.log(`http://localhost:${PORT}`);
   });
 };
