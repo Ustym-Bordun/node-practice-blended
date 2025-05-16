@@ -9,3 +9,7 @@ export const getProduct = async (productId) => {
     _id: productId,
   });
 };
+
+export const createProduct = async (payload) => {
+  return await Product.create(payload);
+};
