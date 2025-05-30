@@ -1,5 +1,6 @@
 import express from 'express';
 import cors from 'cors';
+import userRouter from './routers/userRouter.js';
 
 import { env } from './utils/env.js';
 import productsRouter from './routers/products.js';
@@ -22,7 +23,7 @@ export const setupServer = () => {
       data: result,
     });
   });
-
+  app.use(userRouter);
   app.use(productsRouter);
 
   app.use(notFoundHandler);
